@@ -18,14 +18,6 @@ provider:
   region: us-east-1
 
 functions:
-  # app:
-  #   handler: wsgi.handler
-  #   events:
-  #     - http: ANY /
-  #     - http: 'ANY {proxy+}'
-    # cors:
-    #   enabled: true
-    #   origin: '*'
   streamStatus:
     handler: wsgi.handler
     events:
@@ -33,6 +25,3 @@ functions:
           path: streamstatus
           method: get
           cors: true
-    # cors:
-    #   enabled: true
-    #   origin: '*'
