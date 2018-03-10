@@ -12,5 +12,8 @@
   "devDependencies": {
     "serverless-python-requirements": "^3.3.0",
     "serverless-wsgi": "^1.4.6"
+  },
+  "dependencies": {
+    "serverless-dynamodb-local": "^0.2.28"
   }
 }
