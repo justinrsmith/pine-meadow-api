@@ -47,6 +47,10 @@ functions:
           path: note
           method: post
           cors: true
+      - http:
+          path: note/{proxy+}
+          method: get
+          cors: true
 
 resources:
   Resources:

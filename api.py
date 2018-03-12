@@ -48,6 +48,24 @@ def create_note():
         }
     )
     return jsonify({
+        'noteId': note_id,
         'content': content,
         'attachment': attachment
+    })
+
+@app.route("/note/<string:note_id>", methods=["GET"])
+def get_note(note_id):
+    resp = client.get_item(
+        TableName=NOTES_TABLE,
+        Key={
+            'noteId': { 'S': note_id }
+        }
+    )
+    item = resp.get('Item')
+    if not item:
+        return jsonify({'error': 'Note does not exist'}), 404
+    return jsonify({
+        'noteId': item.get('noteId').get('S'),
+        'content': item.get('content').get('S'),
+        'attachment': item.get('attachment').get('S')
     })
