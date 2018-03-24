@@ -69,3 +69,35 @@ def get_note(note_id):
         'content': item.get('content').get('S'),
         'attachment': item.get('attachment').get('S')
     })
+
+@app.route("/notes", methods=["GET"])
+def get_notes():
+    response = client.scan(
+        TableName=NOTES_TABLE
+    )
+    return jsonify({
+        'data': response['Items']
+    })
+
+@app.route("/notes/<string:note_id>", methods=["PUT"])
+def update_note(note_id):
+    json = request.get_json()
+    content = json.get('content', None)
+    attachment = json.get('attachement', None)
+    response = client.update_item(
+        TableName=NOTES_TABLE,
+        Key={
+            'noteId': { 'S': note_id }
+        },
+        UpdateExpression="set content = :c, attachment = :a",
+        ExpressionAttributeValues={
+            ':c': {'S': content},
+            ':a': {'S': attachment}
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+    return jsonify({
+        'noteId': note_id,
+        'content': content,
+        'attachment': attachment
+    })

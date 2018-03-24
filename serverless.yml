@@ -51,6 +51,14 @@ functions:
           path: note/{proxy+}
           method: get
           cors: true
+      - http:
+          path: notes/{proxy+}
+          method: put
+          cors: true
+      - http:
+          path: notes
+          method: get
+          cors: true
 
 resources:
   Resources:
